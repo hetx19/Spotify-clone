@@ -1,28 +1,30 @@
 import Head from "next/head";
-
-// Components
 import Sidebar from "../components/Sidebar";
+import Center from "../components/Center";
+import { getSession } from "next-auth/react";
+import Player from "../components/Player";
 
 export default function Home() {
   return (
     <div>
-      <Head>
-        <title>Spotify - Web App</title>
-        <meta
-          name="description"
-          content="Spotify is a digital music service that gives you access to millions of songs."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <div className="bg-black h-screen overflow-hidden">
-        <main>
+        <main className="flex">
           <Sidebar />
-          {/* Center */}
+          <Center />
         </main>
+        <div className="sticky bottom-0">
+          <Player />
+        </div>
       </div>
-
-      {/* Player */}
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  return {
+    props: {
+      session,
+    },
+  };
 }

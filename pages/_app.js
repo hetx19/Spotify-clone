@@ -1,12 +1,25 @@
-import "../styles/globals.css";
+import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
-// import { RecoilRoot } from "recoil";
+import { RecoilRoot } from "recoil";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <Head>
+        <title>Spotify - Web App</title>
+        <meta
+          name="description"
+          content="Spotify is a digital music service that gives you access to millions of songs."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <SessionProvider session={session}>
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
+      </SessionProvider>
+    </>
   );
 }
 
